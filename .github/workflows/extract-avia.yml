@@ -1,6 +1,7 @@
 name: Extract AVIA project files
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - ".github/workflows/extract-avia.yml"
