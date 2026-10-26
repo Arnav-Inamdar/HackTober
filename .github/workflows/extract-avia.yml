@@ -1,0 +1,32 @@
+name: Extract AVIA project files
+
+on:
+  push:
+    paths:
+      - ".github/workflows/extract-avia.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  extract-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Extract project into repository root
+        run: |
+          test -f avia-local.zip
+          mkdir -p /tmp/avia-source
+          unzip -q avia-local.zip -d /tmp/avia-source
+          test -d /tmp/avia-source/avia
+          cp -a /tmp/avia-source/avia/. .
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No extracted project changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Extract AVIA source files from archive"
+          git push
