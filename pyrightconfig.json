@@ -1,0 +1,8 @@
+{
+  "include": ["backend"],
+  "exclude": ["**/__pycache__", "**/.pytest_cache", ".venv"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.12",
+  "pythonPlatform": "Linux"
+}
